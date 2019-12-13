@@ -46,7 +46,7 @@ echo " --> Files of your host's directory [/home/$(whoami)], it shows in "
 echo " /storage (Host directory has been mounted in Client FTP's /storage directory.) "  
 echo
 sleep 1
-echo "Your Client FTP's IP Address:" $(docker exec client.ftp for i in $(echo $(ip a | grep 172)); do echo $i; done | grep /16)
+echo "Your Client FTP's IP Address:" $(docker exec client.ftp ip route get 1.2.3.4 | awk '{print $7}')
 echo
 sleep 1
 echo "Your Server FTP's IP Address:" $(docker exec server.ftp hostname -I)
