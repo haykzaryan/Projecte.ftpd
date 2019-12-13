@@ -65,7 +65,7 @@ echo "       login and password. ***** "
 echo
 echo
 echo
-rm -rf projecte.ftpd
+
  
 
  
