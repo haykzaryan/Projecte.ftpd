@@ -11,7 +11,7 @@
 
 	su - $(whoami)
 
-**Clone the repository -> Enter to the folder -> Change permissions of scripts -> Execute the script1**
+**Clone the repository -> Enter to the folder -> Change permissions of scripts -> Execute the projecte.ftpd.sh**
 
 	git clone https://github.com/haykzaryan/projecte.ftpd.git && cd projecte.ftpd && chmod 777 projecte.ftpd.sh && ./projecte.ftpd.sh
 
