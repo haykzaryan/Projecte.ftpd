@@ -13,7 +13,7 @@
 
 **Clone the repository -> Enter to the folder -> Change permissions of scripts -> Execute the projecte.ftpd.sh**
 
-	git clone https://github.com/haykzaryan/projecte.ftpd.git && cd projecte.ftpd && chmod 777 projecte.ftpd.sh && ./projecte.ftpd.sh
+	git clone https://github.com/haykzaryan/projecte.ftpd.git && chmod 777 ./projecte.ftpd/projecte.ftpd.sh && ./projecte.ftpd/projecte.ftpd.sh
 
 
 **That's it! Thank you.** 
