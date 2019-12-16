@@ -28,8 +28,7 @@ docker run -d --name client.ftp -p 5800:5800 -v /docker/appdata/filezilla:/confi
 docker run -dit --name  apache.ftp  -v volume.ftp:/usr/local/apache2/htdocs/ httpd:2.4
 
 #Creates apache for websites
-docker run -dit --name  web1.ftp httpd:2.4
-docker run -dit --name  web2.ftp httpd:2.4
+docker run -dit --name  web1web2.ftp httpd:2.4
 docker run -dit --name  web3.ftp httpd:2.4
 
 # INFO
