@@ -19,7 +19,7 @@ docker volume rm volume.ftp
 docker volume create volume.ftp
 
 #Creates ftp server
-docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp -e FTP_PASS=clientji* fauria/vsftpd
+docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp fauria/vsftpd
  
 #Creates ftp client
 docker run -d --name client.ftp -p 5800:5800 -v /docker/appdata/filezilla:/config:rw -v $HOME:/storage:rw jlesage/filezilla
@@ -62,12 +62,10 @@ echo
 sleep 1
 echo "Your Server FTP's IP Address:" $(docker exec server.ftp hostname -I)
 sleep 1
-echo "Your Client FTP's User: admin"
-sleep 1
-echo "Your Client FTP's User's password: clientji*"
+echo "Your Server FTP's Info:" 
+docker logs server.ftp
 sleep 1
 echo
-sleep 1
 echo "Your Apache's IP Address:" $(docker exec apache.ftp hostname -I)
 sleep 1
 echo "Your Client Apache's IP Adresses:" $(docker exec web1.ftp hostname -I) $(docker exec web2web3.ftp hostname -I)
