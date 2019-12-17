@@ -17,15 +17,17 @@ docker stop apache.ftp server.ftp client.ftp web1.ftp web2web3.ftp
 docker rm apache.ftp server.ftp client.ftp web1.ftp web2web3.ftp
 docker volume rm volume.ftp
 docker volume create volume.ftp
-
-#Creates ftp server
-docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp fauria/vsftpd
  
-#Creates ftp client
-docker run -d --name client.ftp -p 5800:5800 -v /docker/appdata/filezilla:/config:rw -v $HOME:/storage:rw jlesage/filezilla
 
 #Creates Apache container with our volume, mounted in /usr/local/apache2/htdocs/
 docker run -dit --name  apache.ftp  -v volume.ftp:/usr/local/apache2/htdocs/ httpd:2.4
+
+#Creates ftp client
+docker run -d --name client.ftp -p 5800:5800 -v /docker/appdata/filezilla:/config:rw -v $HOME:/storage:rw jlesage/filezilla
+
+#Creates ftp server
+docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp fauria/vsftpd
+
 
 #Creates apache for websites
 docker run -dit --name  web1.ftp httpd:2.4
