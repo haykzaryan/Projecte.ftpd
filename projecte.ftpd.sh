@@ -30,7 +30,7 @@ docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp fauria
 
 
 #Creates apache for websites
-docker run -dit --name  web1.ftp httpd:2.4
+docker run -dit --name  web1.ftp nginx
 docker run -dit --name  web2web3.ftp httpd:2.4
 
 #Create subfolders for each website (web2web3.ftp)
@@ -40,7 +40,7 @@ docker exec web2web3.ftp bash -c "cd /usr/local/apache2/htdocs && mkdir web2 web
 echo First website directory: ; read web1_dir
 echo Second website directory: ; read web2_dir
 echo Third website directory: ; read web3_dir
-cd $web1_dir && docker cp . web1.ftp:/usr/local/apache2/htdocs/
+cd $web1_dir && docker cp . web1.ftp:/usr/share/nginx/html
 cd $web2_dir && docker cp . web2web3.ftp:/usr/local/apache2/htdocs/web2
 cd $web3_dir && docker cp . web2web3.ftp:/usr/local/apache2/htdocs/web3
 docker exec web2web3.ftp bash -c "cd /usr/local/apache2/htdocs && rm index.html"
