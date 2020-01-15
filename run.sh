@@ -27,7 +27,7 @@ docker run -d --name client.ftp -p 5800:5800 -v /docker/appdata/filezilla:/confi
 
 #Creates ftp server
 docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp fauria/vsftpd
-
+docker cp ./logerror.sh server.ftp:/usr/sbin/run-vsftpd.sh
 
 #Creates apache for websites
 docker run -dit --name  web1.ftp nginx
