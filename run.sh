@@ -27,7 +27,6 @@ docker run -d --name client.ftp -p 5800:5800 -v /docker/appdata/filezilla:/confi
 
 #Creates ftp server
 docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp fauria/vsftpd
-docker cp ./logerror.sh server.ftp:/usr/sbin/run-vsftpd.sh
 
 #Creates apache for websites
 docker run -dit --name  web1.ftp nginx
@@ -62,13 +61,14 @@ echo " --> Files of your host's directory [/home/$(whoami)], it shows in "
 echo " /storage (Host directory has been mounted in Client FTP's /storage directory.) "  
 echo
 sleep 1
-echo "Your Client FTP's IP Address:" $(docker exec client.ftp ip route get 1.2.3.4 | awk '{print $7}')
+echo "Your Client FTP's IP Address:" $(docker exec client.ftp hostname -i)
 echo
 sleep 1
 echo "Your Server FTP's IP Address:" $(docker exec server.ftp hostname -I)
 sleep 1
-echo "Your Server FTP's Info:" 
-docker logs server.ftp
+echo "Your Server FTP's Info:"
+echo 
+docker exec server.ftp ./usr/sbin/run-vsftpd.sh
 sleep 1
 echo
 echo "Your Apache's IP Address:" $(docker exec apache.ftp hostname -I)
