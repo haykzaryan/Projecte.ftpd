@@ -17,22 +17,28 @@ docker stop apache.ftp server.ftp client.ftp web1.ftp web2web3.ftp
 docker rm apache.ftp server.ftp client.ftp web1.ftp web2web3.ftp
 docker volume rm volume.ftp
 docker volume create volume.ftp
- 
+docker network rm iphost
+
+
+
+#Create network
+docker network create --driver overlay --attachable iphost 
+
 
 #Creates Apache container with our volume, mounted in /usr/local/apache2/htdocs/
-docker run -dit --name  apache.ftp  -v volume.ftp:/usr/local/apache2/htdocs/ httpd:2.4
+docker run -dit --name  apache.ftp -p 80:80  -v volume.ftp:/usr/local/apache2/htdocs/ --network iphost httpd:2.4
 
 #Creates ftp client
-docker run -d --name client.ftp -p 5800:5800 -v /docker/appdata/filezilla:/config:rw -v $HOME:/storage:rw jlesage/filezilla
+docker run -d --name client.ftp -p 5800:5800 -v /docker/appdata/filezilla:/config:rw -v $HOME:/storage:rw --network iphost jlesage/filezilla
 
 #Creates ftp server
-docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp fauria/vsftpd
-docker cp ./projecte.ftpd/logerror.sh server.ftp:/usr/sbin/run-vsftpd.sh
+docker run -d -p 21:21 -v volume.ftp:/home/vsftpd/admin --name server.ftp --network iphost fauria/vsftpd
+#docker cp ./projecte.ftpd/logerror.sh server.ftp:/usr/sbin/run-vsftpd.sh
 
  
 #Creates apache for websites
-docker run -dit --name  web1.ftp nginx
-docker run -dit --name  web2web3.ftp httpd:2.4
+docker run -dit -p 81:80  --name  web1.ftp --network  iphost  nginx
+docker run -dit -p 82:80  --name  web2web3.ftp --network iphost  httpd:2.4
 
 #Create subfolders for each website (web2web3.ftp)
 docker exec web2web3.ftp bash -c "cd /usr/local/apache2/htdocs && mkdir web2 web3"
